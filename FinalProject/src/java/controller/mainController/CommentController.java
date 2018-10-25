@@ -13,24 +13,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CommentModel;
-import model.ImageModel;
 
 /**
  *
  * @author Vova
  */
-public class ImageDetail extends BaseController {
+public class CommentController extends BaseController {
+
+  private final int pageSize = 3;
 
   @Override
   protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    int index = 1;
     ImageDao imageDao = new ImageDao();
     int id = Integer.parseInt(req.getParameter("id"));
-    ImageModel image = imageDao.getImageById(id);
-    req.setAttribute("image", image);
-    int commentNum = imageDao.countComment(id);
-    req.setAttribute("commentNum", commentNum);
-    req.getRequestDispatcher("screens/imageDetail.jsp").forward(req, resp);
+    int index = Integer.parseInt(req.getParameter("index"));
+    ArrayList<CommentModel> comments = imageDao.getComment(id, index, pageSize);
+    if (comments.size() < pageSize) {
+      req.setAttribute("error", "No comment left");
+    }
+    req.setAttribute("comments", comments);
+    req.getRequestDispatcher("components/comment.jsp").forward(req, resp);
   }
 
   @Override

@@ -16,12 +16,18 @@
     </head>
     <body>
         <% for (int j = 0; j < imageModels.size(); j++) {%>
-        <a href="imageDetail" class="col-md-2 eachImage">
-                <img class="insideImage" src="http://localhost:8080/FinalProject/image?id=<%= imageModels.get(j).getId()%>"/>
-                <div class="imageInfo">
-                    <h6><%= imageModels.get(j).getCreatedBy().getUsername()%></h6>
-                    <h6><%= imageModels.get(j).getTitle()%></h6>
+        <a href="imageDetail?id=<%= imageModels.get(j).getId() %>" class="col-md-2 eachImage">
+            <img class="insideImage" src="http://localhost:8080/FinalProject/image?id=<%= imageModels.get(j).getId()%>"/>
+            <div class="imageInfo">
+                <div class="rounded-avatar" 
+                     style="background-image: url(http://localhost:8080/FinalProject/image/avatar?id=<%= imageModels.get(j).getCreatedBy().getId()%>)
+                     ">  
                 </div>
+                <div class="imageInfo-nameTitle" >
+                    <p class="imageInfo-name" ><%= imageModels.get(j).getCreatedBy().getUsername()%></p>
+                    <p class="imageInfo-title"><%= imageModels.get(j).getTitle()%></h6>
+                </div>
+            </div>
         </a>
         <%}%>
         <c:if test="${error != null}">

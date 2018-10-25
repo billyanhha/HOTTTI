@@ -33,14 +33,15 @@ public class AvatarImage extends BaseController {
     imageData = ud.getUserAvatar(Integer.parseInt(sid));
 
     resp.setContentType(imageData.getContentType());
-    
+
     ServletOutputStream out = resp.getOutputStream();
 
-    out.write(imageData.getImageByte());
+    if (imageData.getImageByte() != null) {
+      out.write(imageData.getImageByte());
 
-    out.flush();
-    out.close();
-
+      out.flush();
+      out.close();
+    }
   }
 
   @Override

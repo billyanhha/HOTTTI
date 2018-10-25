@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.AuthModel;
+import model.CommentModel;
 import model.ImageDataModel;
 import model.ImageModel;
 
@@ -59,9 +60,9 @@ public class ImageDao extends BaseDao {
   public ArrayList<ImageModel> pagging(int pageIndex, int pageSize) {
     try {
       ArrayList<ImageModel> images = new ArrayList<>();
-      String sql = "Select id,createdAt , title, createdBy ,username\n"
+      String sql = "Select id , title, createdBy ,username\n"
               + "	from (select ROW_NUMBER() over (order by [Image].id DESC) as rn , \n"
-              + "		[Image].id,createdAt , title, createdBy , [User].username as username\n"
+              + "		[Image].id , title, createdBy , [User].username as username\n"
               + "        from [Image] , [User]\n"
               + "		where [User].id = createdBy\n"
               + "		)\n"
@@ -79,7 +80,6 @@ public class ImageDao extends BaseDao {
         ImageModel image = new ImageModel();
         image.setId(rs.getInt("id"));
         image.setTitle(rs.getString("title"));
-        image.setCreatedAt(rs.getDate("createdAt"));
         int createdBy = (rs.getInt("createdBy"));
         String username = rs.getString("username");
 
@@ -114,6 +114,115 @@ public class ImageDao extends BaseDao {
       Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
     }
     return -1;
+
+  }
+  
+    public int countComment(int id) {
+
+    try {
+      String sql = "SELECT COUNT(id) AS commentNumb FROM Comment Where imageId = ?";
+
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setInt(1, id);
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+        return rs.getInt("commentNumb");
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return -1;
+
+  }
+
+  public ImageModel getImageById(int id) {
+
+    try {
+      ImageModel image = null;
+      String sql = "SELECT [Image].[id]\n"
+              + "      ,[createdAt]\n"
+              + "      ,[title]\n"
+              + "      ,[createdBy]\n"
+              + "	  , [User].username\n"
+              + "  FROM [dbo].[Image] , [User]\n"
+              + "  Where [Image].id = ? And createdBy = [User].id";
+
+      PreparedStatement ps = connection.prepareStatement(sql);
+
+      ps.setInt(1, id);
+
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+
+        image = new ImageModel();
+        image.setId(rs.getInt("id"));
+        image.setCreatedAt(rs.getDate("createdAt"));
+        image.setTitle(rs.getString("title"));
+
+        int createdBy = (rs.getInt("createdBy"));
+        String username = rs.getString("username");
+
+        AuthModel auth = new AuthModel();
+        auth.setId(createdBy);
+        auth.setUsername(username);
+
+        image.setCreatedBy(auth);
+
+      }
+
+      return image;
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+
+  }
+
+  public ArrayList<CommentModel> getComment(int id, int index, int pageSize) {
+    try {
+      ArrayList<CommentModel> commentModels = new ArrayList<>();
+      String sql = "Select id , uid , username , content\n"
+              + "	from (select ROW_NUMBER() over (order by Comment.id ASC) as rn , \n"
+              + "		Comment.id , Comment.createdBy as uid , username , content\n"
+              + "        from Comment , [User] \n"
+              + "		where Comment.imageId = ?\n"
+              + "		And Comment.createdBy = [User].id\n"
+              + "		)\n"
+              + "		as x\n"
+              + "		where rn between ? * (? - 1) + 1   \n"
+              + "			and  ? * (? )";
+
+      PreparedStatement ps = connection.prepareStatement(sql);
+
+      ps.setInt(1, id);
+      ps.setInt(2, pageSize);
+      ps.setInt(3, index);
+      ps.setInt(4, pageSize);
+      ps.setInt(5, index);
+
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        CommentModel cmd = new CommentModel();
+        AuthModel au = new AuthModel();
+        au.setId(rs.getInt("uid"));
+        au.setUsername(rs.getString("username"));
+        cmd.setId(id);
+        cmd.setCreatedBy(au);
+        cmd.setContent(rs.getString("content"));
+
+        commentModels.add(cmd);
+      }
+
+      return commentModels;
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return null;
 
   }
 

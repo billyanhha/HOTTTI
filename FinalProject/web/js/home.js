@@ -15,7 +15,7 @@ $(document).ready(() => {
 
 const loadingResources = () => {
     let numberOfImage = $('.numberOfImage').val();
-    let pageSize = Math.round(numberOfImage / 4) < 10 ? Math.round(numberOfImage / 4) : 10;
+    let pageSize = 20;
     loadData(pageSize);
     $(window).on('scroll', _.debounce(() => {
         if (!continueLoad) {
