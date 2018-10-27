@@ -7,20 +7,46 @@
 let index = 1;
 
 $(document).ready(() => {
-    console.log($("#comment").val())
     if ($("#comment").val() > 0) {
         preLoad();
     }
+    $('.submitComment').click((e) => {
+        e.preventDefault();
+        $(".submitComment").attr("disabled", "true");
+
+        setTimeout(() => {
+            $(".submitComment").removeAttr("disabled");
+        }, 500);
+        postComment();
+    });
 });
 
 const preLoad = async () => {
     loadComment();
-
     $('.loadMoreComment').on('click', (e) => {
         e.preventDefault();
         loadComment();
     });
 
+};
+
+const postComment = () => {
+    let comment = $('.commentText').val();
+    let id = $('#id').val();
+    if (!comment) {
+        return;
+    }
+    $.ajax({
+        url: '/FinalProject/comment',
+        type: 'POST',
+        data: {
+            id,
+            comment
+        },
+        success: (res) => {
+            window.location.reload();
+        }
+    });
 };
 
 const loadComment = () => {
@@ -54,8 +80,9 @@ const append = (res, width) => {
     }
     $(".commentShow").append(res);
     $('.detail-comment-content-each').attr('style', "width: " + width + "px");
-    if ($('#outOfComment').val() === 'outOfComment') {
+    if ($('#outOfComment').val() === 'outOfComment' || parseInt($('#comment').val()) === $('.detail-comment-content-each').length) {
         $('.loadMoreComment').attr('style', 'display: none');
     }
     $(".spinner").attr("style", "display: none");
 };
+

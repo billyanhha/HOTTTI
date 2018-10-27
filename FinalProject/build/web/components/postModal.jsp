@@ -11,15 +11,16 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form method="POST" action="./home" enctype='multipart/form-data' >
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Image description">
-                        <input type="file" name="pic" accept="image/* class="form-control-file" id="exampleFormControlFile1" style="margin-top: 10px">
+                        <input type="text" class="form-control" name="title" placeholder="Image description">
+                        <input type="file" id="inputFile" class="filePost"  name="file" accept="image/*" style="margin-top: 10px">
+                        <image id="image_upload_preview" src="" class="preImage" />
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary postImage">Save changes</button>
                 </div>
             </form>
         </div>

@@ -58,11 +58,14 @@
 
                     <div class="detail-comment">
                         <h4>Comment <span style="font-size: 18px" > ${commentNum} </span>  </h4>
-                        <div class="form-group">
-                            <textarea class="form-control" style="resize: none;" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
+                        <form method="POST">
+                            <div class="input-group">
+                                <textarea class="form-control custom-control commentText" rows="3"  style="resize:none ; border-radius: 0"></textarea>     
+                                <button type="button" class="btn btn-primary submitComment" style="display: flex ; align-items: center ; border-radius: 0" >Send</button>
+                            </div>
+                        </form>
                         <div class="detail-comment-content">
-                            <div class="commentShow">
+                            <div class="commentShow" style="margin-top: 10px" >
                                 <!--getComment-->
                             </div>
                             <c:choose >

@@ -12,7 +12,6 @@
 <html>
     <head>
         <% ArrayList<ImageModel> imageModels = (ArrayList<ImageModel>) request.getAttribute("imageModels"); %>
-        <% String error = (String) request.getAttribute("error"); %>
     </head>
     <body>
         <% for (int j = 0; j < imageModels.size(); j++) {%>
@@ -30,8 +29,5 @@
             </div>
         </a>
         <%}%>
-        <c:if test="${error != null}">
-            <input type="hidden" class="outOfImage" value="<%= error%>"/>
-        </c:if>
     </body>
 </html>

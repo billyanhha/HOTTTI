@@ -17,6 +17,7 @@
         <div class="container-fluid home">
 
             <jsp:include page="../components/homHeader.jsp"/>
+            <jsp:include page="../components/postModal.jsp"/>
 
             <hr/>
 

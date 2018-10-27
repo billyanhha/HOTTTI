@@ -5,6 +5,8 @@
  */
 package dal;
 
+import java.io.InputStream;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -116,8 +118,8 @@ public class ImageDao extends BaseDao {
     return -1;
 
   }
-  
-    public int countComment(int id) {
+
+  public int countComment(int id) {
 
     try {
       String sql = "SELECT COUNT(id) AS commentNumb FROM Comment Where imageId = ?";
@@ -224,6 +226,57 @@ public class ImageDao extends BaseDao {
 
     return null;
 
+  }
+
+  public int addImage(String title, Date createdAt, int createdBy, InputStream is, String contentType) {
+    try {
+      String sql = "INSERT INTO [dbo].[Image]\n"
+              + "           ([data]\n"
+              + "           ,[contentType]\n"
+              + "           ,[createdAt]\n"
+              + "           ,[title]\n"
+              + "           ,[createdBy])\n"
+              + "	 OUTPUT Inserted.ID\n"
+              + "     VALUES\n"
+              + "           (? , ? , ? , ? , ?)";
+
+      PreparedStatement ps = connection.prepareCall(sql);
+
+      ps.setBlob(1, is);
+      ps.setString(2, contentType);
+      ps.setDate(3, createdAt);
+      ps.setString(4, title);
+      ps.setInt(5, createdBy);
+
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+        return rs.getInt("ID");
+      }
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return -1;
+  }
+
+  public void postComment(int imageId, int uid, String content) {
+    try {
+      String sql = "INSERT INTO [dbo].[Comment]\n"
+              + "           ([imageId]\n"
+              + "           ,[createdBy]\n"
+              + "           ,[content])\n"
+              + "     VALUES\n"
+              + "           (? , ? ,?)";
+      PreparedStatement ps = connection.prepareCall(sql);
+      ps.setInt(1, imageId);
+      ps.setInt(2, uid);
+      ps.setString(3, content);
+      ps.executeUpdate();
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   
   }
 
 }

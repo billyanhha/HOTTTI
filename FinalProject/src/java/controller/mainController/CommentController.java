@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AuthModel;
 import model.CommentModel;
 
 /**
@@ -28,15 +29,18 @@ public class CommentController extends BaseController {
     int id = Integer.parseInt(req.getParameter("id"));
     int index = Integer.parseInt(req.getParameter("index"));
     ArrayList<CommentModel> comments = imageDao.getComment(id, index, pageSize);
-    if (comments.size() < pageSize) {
-      req.setAttribute("error", "No comment left");
-    }
     req.setAttribute("comments", comments);
     req.getRequestDispatcher("components/comment.jsp").forward(req, resp);
   }
 
   @Override
   protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    int id = Integer.parseInt(req.getParameter("id"));
+
+    AuthModel user = (AuthModel) req.getSession().getAttribute("user");
+    ImageDao imageDao = new ImageDao();
+    imageDao.postComment(id, user.getId(), req.getParameter("comment"));
+    resp.sendRedirect("imageDetail?id=" + id);
   }
 
 }

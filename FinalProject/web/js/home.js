@@ -13,7 +13,26 @@ $(document).ready(() => {
     loadingResources();
 });
 
+
 const loadingResources = () => {
+    $(".postImage").attr("disabled", "true");
+    function readURL(input) {
+        $(".postImage").attr("disabled", "true");
+        if (input.files && input.files[0]) {
+            $(".postImage").removeAttr("disabled");
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#inputFile").change(function () {
+        readURL(this);
+    });
     let numberOfImage = $('.numberOfImage').val();
     let pageSize = 20;
     loadData(pageSize);
@@ -24,6 +43,7 @@ const loadingResources = () => {
         loadMoreData(pageSize);
     }, 300));
 };
+
 
 const loadMoreData = (pageSize) => {
     if ($(window).scrollTop() + $(window).height() >= $('.grid').outerHeight()) {
@@ -54,14 +74,6 @@ const ajaxCalling = (pageSize) => {
         success: (res) => {
 
             append(res);
-
-            if ($('.outOfImage').val()) {
-                $(".spinner").attr("style", "display: none");
-                continueLoad = false;
-                $('.home').append("<hr/>");
-                $('.showError').html($('.outOfImage').val());
-                return;
-            }
         }
     });
 };
@@ -79,8 +91,19 @@ const append = async (res) => {
     $(res).imagesLoaded(async () => {
         await $grid.append(res);
         $grid.masonry("reloadItems").masonry("layout");
-    });
+        checkEnd();
 
+    });
+};
+
+const checkEnd = () => {
+    if (parseInt($('.numberOfImage').val()) === $('.eachImage').length) {
+        $(".spinner").attr("style", "display: none");
+        continueLoad = false;
+        $('.home').append("<hr/>");
+        $('.showError').html("Out of image");
+        return;
+    }
 };
 
 
