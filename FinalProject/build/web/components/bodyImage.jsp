@@ -19,7 +19,7 @@
             <img class="insideImage" src="http://localhost:8080/FinalProject/image?id=<%= imageModels.get(j).getId()%>"/>
             <div class="imageInfo">
                 <div class="rounded-avatar" 
-                     style="background-image: url(http://localhost:8080/FinalProject/image/avatar?id=<%= imageModels.get(j).getCreatedBy().getId()%>)
+                     style="background-image: url(http://localhost:8080/FinalProject/avatar?id=<%= imageModels.get(j).getCreatedBy().getId()%>)
                      ">  
                 </div>
                 <div class="imageInfo-nameTitle" >

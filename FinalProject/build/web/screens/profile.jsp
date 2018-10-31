@@ -4,6 +4,7 @@
     Author     : Vova
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,41 +22,56 @@
 
             <jsp:include page="../components/homHeader.jsp"/>
             <jsp:include page="../components/changeAvatar.jsp"/>
-
+            <jsp:include page="../components/postModal.jsp"/>
             <hr/>
-
-
+            <input type="hidden" id="uid" value="${param.id}"/>
+            <input type="hidden" id="username" value="${user.username}"/>
             <div class="profile-div" >
                 <div>
-                    <h3>Ha quy anh</h3>
-                    <h6>6 post</h6>
+                    <h3>${user.username}</h3>
+                    <h5>${requestScope.userImage} Post</h5>
+                    <h6>${user.fullname}</h6>
                 </div>
-                <div 
-                    data-toggle="modal" data-target="#changeModal"
-                    class="rounded-avatar changeAvatar" style="background-image: url(images/authBackground.jpg) ; width: 100px ; height: 100px ; border-radius: 100px">  
-                    <p class="uploadText" >Upload <i class="fas fa-upload"></i></p>
-                </div>
+                <c:choose>
+
+                    <c:when test = "${param.id eq sessionScope.user.id}">
+                        <div 
+                            data-toggle="modal" data-target="#changeModal"
+                            class="rounded-avatar changeAvatar"
+                            style="
+                            background-image: url(http://localhost:8080/FinalProject/avatar?id=${param.id})
+                            ;width: 100px ; height: 100px ; border-radius: 100px">  
+                            <p class="uploadText" >Upload <i class="fas fa-upload"></i></p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div 
+                            class="rounded-avatar"
+                            style="
+                            background-image: url(http://localhost:8080/FinalProject/avatar?id=${param.id})
+                            ;width: 100px ; height: 100px ; border-radius: 100px">  
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
-            <div class="padding row" >
-                <% for (int i = 0; i < 6; i++) { %>
-                <div class="col-md col-sm-6 col-xs-12 ">
-                    <a href="imageDetail">
-                        <div class="image">
-                            <img class="insideImage" src="images/43524470_390022891536572_4199342507739316224_n.jpg"/>
-                            <div class="imageInfo">
-                                <h6>username</h6>
-                                <h6>Title</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <%}%>
+            <div class="grid  row" id="imageContainer">
             </div>
+            <jsp:include page="../components/loader.jsp"/>
+
+            <input type="hidden" class="userImage" value=${requestScope.userImage} />
+            <c:if test="${requestScope.userImage > 0}">
+                <center> <h3 class="showError">  </h3> </center>
+                </c:if>
         </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="js/profile.js"></script>
 </html>

@@ -13,19 +13,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form action="avatar?id=${param.id}" method="POST" enctype='multipart/form-data'>
                 <div class="modal-body">
-                    <form>
-                        <!--                        <div class="rounded-avatar changeAvatar" style="background-image: url(images/authBackground.jpg) ; width: 100px ; height: 100px ; border-radius: 100px">  
-                                                    <input type="file" class="input-change" name="pic" accept="image/*">
-                                                    </input>
-                                                    <p class="uploadText" >Upload image <i class="fas fa-upload"></i></p>
-                                                </div>-->
-                        <input type="file" name="pic" accept="image/* class="form-control-file" id="exampleFormControlFile1" style="margin-top: 10px">
-                    </form>
+                    <input type="file" name="avatar" accept="image/*" class="form-control-file" id="avatarFile" style="margin-top: 10px">
+                    <image id="image_upload_preview" src="" class="preImage" />
+                    <input type="hidden" name="uid" value="${sessionScope.user.id}">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary submitChangeAva">Save changes</button>
                 </div>
             </form>
         </div>

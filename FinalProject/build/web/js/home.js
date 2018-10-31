@@ -16,6 +16,7 @@ $(document).ready(() => {
 
 const loadingResources = () => {
     $(".postImage").attr("disabled", "true");
+//    load data
     function readURL(input) {
         $(".postImage").attr("disabled", "true");
         if (input.files && input.files[0]) {
@@ -33,7 +34,6 @@ const loadingResources = () => {
     $("#inputFile").change(function () {
         readURL(this);
     });
-    let numberOfImage = $('.numberOfImage').val();
     let pageSize = 20;
     loadData(pageSize);
     $(window).on('scroll', _.debounce(() => {

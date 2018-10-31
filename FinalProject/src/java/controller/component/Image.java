@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.image;
+package controller.component;
 
 import controller.BaseController;
 import dal.ImageDao;
@@ -25,21 +25,13 @@ public class Image extends BaseController {
   @Override
   protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String sid = req.getParameter("id");
-
     ImageDao ud = new ImageDao();
-
     ImageDataModel imageData = new ImageDataModel();
-
     imageData = ud.getImageData(Integer.parseInt(sid));
-
     resp.setContentType(imageData.getContentType());
-    
     ServletOutputStream out = resp.getOutputStream();
-    
     out.write(imageData.getImageByte());
-    
     out.flush();
-    
     out.close();
   }
 

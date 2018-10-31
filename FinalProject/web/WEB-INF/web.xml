@@ -26,19 +26,31 @@
     </servlet>
     <servlet>
         <servlet-name>AvatarImage</servlet-name>
-        <servlet-class>controller.image.AvatarImage</servlet-class>
+        <servlet-class>controller.component.AvatarImage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>imageData</servlet-name>
-        <servlet-class>controller.image.Image</servlet-class>
+        <servlet-class>controller.component.Image</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PagingImage</servlet-name>
-        <servlet-class>controller.mainController.PagingImage</servlet-class>
+        <servlet-class>controller.component.PagingImage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CommentController</servlet-name>
-        <servlet-class>controller.mainController.CommentController</servlet-class>
+        <servlet-class>controller.component.CommentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deletePost</servlet-name>
+        <servlet-class>controller.component.DeleteImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Edit</servlet-name>
+        <servlet-class>controller.component.EditPost</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteComment</servlet-name>
+        <servlet-class>controller.component.DeleteComment</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -65,10 +77,6 @@
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AvatarImage</servlet-name>
-        <url-pattern>/image/avatar</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>imageData</servlet-name>
         <url-pattern>/image</url-pattern>
     </servlet-mapping>
@@ -79,6 +87,22 @@
     <servlet-mapping>
         <servlet-name>CommentController</servlet-name>
         <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deletePost</servlet-name>
+        <url-pattern>/deletePost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Edit</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteComment</servlet-name>
+        <url-pattern>/deleteComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvatarImage</servlet-name>
+        <url-pattern>/avatar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

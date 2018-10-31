@@ -126,7 +126,6 @@ textarea.form-control:focus{
 }
 
 .rounded-avatar{
-    background-color: #bababa;
     height: 30px;
     width: 30px;
     border-radius: 30px;
@@ -135,7 +134,8 @@ textarea.form-control:focus{
     background-size: cover;
     margin-left: 3px;
     margin-right: 3px;
-    background-image: url('../images/defaultUser.jpg')
+    border: none;
+    background-color: #eee;
 }
 
 .image{

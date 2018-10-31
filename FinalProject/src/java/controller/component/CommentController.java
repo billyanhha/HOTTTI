@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.mainController;
+package controller.component;
 
 import controller.BaseController;
 import dal.ImageDao;
@@ -30,6 +30,7 @@ public class CommentController extends BaseController {
     int index = Integer.parseInt(req.getParameter("index"));
     ArrayList<CommentModel> comments = imageDao.getComment(id, index, pageSize);
     req.setAttribute("comments", comments);
+    req.setAttribute("id", id);
     req.getRequestDispatcher("components/comment.jsp").forward(req, resp);
   }
 

@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /* global _ */
 
 let index = 1;
@@ -15,6 +21,41 @@ $(document).ready(() => {
 
 
 const loadingResources = () => {
+    uploadAvatar();
+    uploadImage();
+    let pageSize = 20;
+    loadData(pageSize);
+    $(window).on('scroll', _.debounce(() => {
+        if (!continueLoad) {
+            return;
+        }
+        loadMoreData(pageSize);
+    }, 300));
+};
+
+const uploadAvatar = () => {
+    $(".submitChangeAva").attr("disabled", "true");
+//    load data
+    function readURL(input) {
+        $(".submitChangeAva").attr("disabled", "true");
+        if (input.files && input.files[0]) {
+            $(".submitChangeAva").removeAttr("disabled");
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#avatarFile").change(function () {
+        readURL(this);
+    });
+};
+
+const uploadImage = () => {
     $(".postImage").attr("disabled", "true");
 //    load data
     function readURL(input) {
@@ -34,14 +75,6 @@ const loadingResources = () => {
     $("#inputFile").change(function () {
         readURL(this);
     });
-    let pageSize = 20;
-    loadData(pageSize);
-    $(window).on('scroll', _.debounce(() => {
-        if (!continueLoad) {
-            return;
-        }
-        loadMoreData(pageSize);
-    }, 300));
 };
 
 
@@ -63,13 +96,15 @@ const loadData = (pageSize) => {
 };
 
 const ajaxCalling = (pageSize) => {
+    let uid = $('#uid').val();
     $(".spinner").attr("style", "display: block");
     $.ajax({
         url: '/FinalProject/paging',
         type: 'GET',
         data: {
             pageIndex: index++,
-            pageSize
+            pageSize,
+            uid
         },
         success: (res) => {
 
@@ -97,11 +132,12 @@ const append = async (res) => {
 };
 
 const checkEnd = () => {
-    if (parseInt($('.numberOfImage').val()) === $('.eachImage').length) {
+    let username = $('#username').val();
+    if (parseInt($('.userImage').val()) === $('.eachImage').length) {
         $(".spinner").attr("style", "display: none");
         continueLoad = false;
         $('.home').append("<hr/>");
-        $('.showError').html("Out of image");
+        $('.showError').html("All <span style=\"color: #007BFF\">" + username + "</span> post");
         return;
     }
 };

@@ -47,7 +47,7 @@ public class Authentication extends HttpServlet {
     }
 
     request.getSession().setAttribute("user", am);
-    request.getSession().setMaxInactiveInterval(-1);
+    request.getSession().setMaxInactiveInterval(1000*60*60*12);
 
     
     if (rmb == true) {

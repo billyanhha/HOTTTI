@@ -32,11 +32,10 @@ import model.ImageModel;
 @MultipartConfig
 public class Home extends BaseController {
 
-  AuthModel user = null;
 
   @Override
   protected void processGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    user = (AuthModel) req.getSession().getAttribute("user");
+    AuthModel user = (AuthModel) req.getSession().getAttribute("user");
     req.setAttribute("user", user);
 
     ImageDao id = new ImageDao();
@@ -49,7 +48,9 @@ public class Home extends BaseController {
 
   @Override
   protected void processPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    Part filePart = req.getPart("file"); // Retrieves <input type="file" name="file">
+    AuthModel user = (AuthModel) req.getSession().getAttribute("user");
+    req.setAttribute("user", user);
+    Part filePart = req.getPart("file");
     if (filePart.getSize() == 0) {
       resp.sendRedirect("home");
     } else {
