@@ -108,7 +108,7 @@ public class UserDao extends BaseDao {
 
   }
 
-  public void changeAvatar(int id , InputStream is, String contentType) {
+  public void changeAvatar(int id, InputStream is, String contentType) {
     try {
       String sql = "UPDATE [dbo].[User]\n"
               + "   SET [avatar] = ?\n"
@@ -122,7 +122,67 @@ public class UserDao extends BaseDao {
     } catch (SQLException ex) {
       Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+
+  }
+
+  public ArrayList<UserModel> searchUser(String query, int index) {
+    try {
+      ArrayList<UserModel> users = new ArrayList<>();
+      String sql = "Select [id]\n"
+              + "      ,[username]\n"
+              + "      ,[fullname]\n"
+              + "	from (select ROW_NUMBER() over (order by id DESC) as rn , \n"
+              + "		 [id]\n"
+              + "      ,[username]\n"
+              + "      ,[fullname]\n"
+              + "  FROM [dbo].[User]\n"
+              + "  Where [username] like ? or fullname like ?\n"
+              + "		)\n"
+              + "		as x\n"
+              + "		where rn between 5 * (?) + 1   \n"
+              + "			and  5 * ?";
+
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setString(1, '%' + query + '%');
+      ps.setString(2, '%' + query + '%');
+      ps.setInt(3 , index - 1);
+      ps.setInt(4 , index);
+
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        UserModel user = new UserModel();
+        user.setId(rs.getInt("id"));
+        user.setUsername(rs.getString("username"));
+        user.setFullname(rs.getString("fullname"));
+        users.add(user);
+      }
+
+      return users;
+
+    } catch (SQLException ex) {
+      Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return null;
+  }
+
+  public int countResult(String query) {
+    try {
+      String sql = "SELECT Count(id) as TotalResult\n"
+              + "  FROM [dbo].[User]\n"
+              + "  Where [username] like ? or fullname like ?";
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setString(1, '%' + query + '%');
+      ps.setString(2, '%' + query + '%');
+
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        return rs.getInt("TotalResult");
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return -1;
   }
 
 }

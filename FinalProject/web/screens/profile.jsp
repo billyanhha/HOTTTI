@@ -27,20 +27,14 @@
             <input type="hidden" id="uid" value="${param.id}"/>
             <input type="hidden" id="username" value="${user.username}"/>
             <div class="profile-div" >
-                <div>
-                    <h3>${user.username}</h3>
-                    <h5>${requestScope.userImage} Post</h5>
-                    <h6>${user.fullname}</h6>
-                </div>
                 <c:choose>
-
                     <c:when test = "${param.id eq sessionScope.user.id}">
                         <div 
                             data-toggle="modal" data-target="#changeModal"
                             class="rounded-avatar changeAvatar"
                             style="
                             background-image: url(http://localhost:8080/FinalProject/avatar?id=${param.id})
-                            ;width: 100px ; height: 100px ; border-radius: 100px">  
+                            ;width: 130px ; height: 130px ; border-radius: 100px">  
                             <p class="uploadText" >Upload <i class="fas fa-upload"></i></p>
                         </div>
                     </c:when>
@@ -49,10 +43,15 @@
                             class="rounded-avatar"
                             style="
                             background-image: url(http://localhost:8080/FinalProject/avatar?id=${param.id})
-                            ;width: 100px ; height: 100px ; border-radius: 100px">  
+                            ;width: 130px ; height: 130px ; border-radius: 100px">  
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <div>
+                    <h3>${user.username}</h3>
+                    <h5>${requestScope.userImage} Post</h5>
+                    <h6>${user.fullname}</h6>
+                </div>
             </div>
 
             <div class="grid  row" id="imageContainer">
