@@ -19,7 +19,6 @@
     </head>
     <body>
         <div class="container-fluid">
-
             <jsp:include page="../components/homHeader.jsp"/>
             <jsp:include page="../components/changeAvatar.jsp"/>
             <jsp:include page="../components/postModal.jsp"/>
@@ -34,8 +33,8 @@
                             class="rounded-avatar changeAvatar"
                             style="
                             background-image: url(http://localhost:8080/FinalProject/avatar?id=${param.id})
-                            ;width: 130px ; height: 130px ; border-radius: 100px">  
-                            <p class="uploadText" >Upload <i class="fas fa-upload"></i></p>
+                            ;width: 160px ; height: 160px ; border-radius: 100px">  
+                            <p class="uploadText" >Upload</p>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -43,14 +42,14 @@
                             class="rounded-avatar"
                             style="
                             background-image: url(http://localhost:8080/FinalProject/avatar?id=${param.id})
-                            ;width: 130px ; height: 130px ; border-radius: 100px">  
+                            ;width: 160px ; height: 160px ; border-radius: 100px">  
                         </div>
                     </c:otherwise>
                 </c:choose>
                 <div>
-                    <h3>${user.username}</h3>
+                    <p class="profile-div-username" >${user.username}</p>
                     <h5>${requestScope.userImage} Post</h5>
-                    <h6>${user.fullname}</h6>
+                    <p class="profile-div-fullname">${user.fullname}</p>
                 </div>
             </div>
 

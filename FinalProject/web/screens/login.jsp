@@ -36,15 +36,19 @@
                     <div class="form-group" style="text-align: left" >
                         <input  type="checkbox" class="remember">
                         <label class="form-check-label">Remember me</label>
+                        <br/>
+                    </div>
+                    <div class="form-group" style="text-align: left" >
+                        <a href="recover" >Forgot password ? </a>
                     </div>
                     <button type="submit"  id="button1" class="btn btn-block btn-primary">Continue</button>
                 </form>
-
                 <span class="smallText">By clicking continue , you're agreed with our 
                     <span class="term" >Term & Service</span>
                     and
                     <span class="term">Policy</span>
                 </span>
+                <br/>
                 <hr/>
                 <span class="smallText">No account ?
                     <a href="signUp" class="term">Signup</a>

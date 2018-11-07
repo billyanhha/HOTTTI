@@ -43,16 +43,16 @@
                 <div class="detail-div-in">
 
                     <div style="width: 100%; display: flex ; flex-direction: row ; justify-content: space-between ; align-items: center">
-                        <div style="display: flex; flex-direction: row ; align-items: flex-start" >
+                        <div style="display: flex; flex-direction: row ; align-items: center" >
                             <jsp:include page="../components/toProfile.jsp">
                                 <jsp:param name="uid" value="<%= image.getCreatedBy().getId()%>" />
                                 <jsp:param name="username" value="<%= image.getCreatedBy().getUsername()%>" />
                                 <jsp:param name="date" value="<%= image.getCreatedAt()%>" />
                             </jsp:include>
                             <c:if test="${image.getCreatedBy().getId() eq sessionScope.user.id }" >
-                                <button class="header-3 profile-header col-md-2" 
+                                <button class="profile-header" style="; margin-left: 10px"
                                         type="button" id="edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-chevron-circle-down" style="color: #37A3F1" ></i>
+                                    <i class="fas fa-chevron-circle-down" style="color: #333 " ></i>
                                 </button> 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" data-toggle="modal" data-target="#editModal">Edit</a>
@@ -69,8 +69,9 @@
 
                     <h5 style="margin-top: 15px; margin-bottom: 0" ><%= image.getTitle()%></h5>
 
-                    <img src="http://localhost:8080/FinalProject/image?id=<%= image.getId()%>" class="detail-div-image">
-
+                    <a href="http://localhost:8080/FinalProject/image?id=<%= image.getId()%>" download="<%= image.getTitle()%>" class="download" >
+                        <img src="http://localhost:8080/FinalProject/image?id=<%= image.getId()%>" class="detail-div-image">
+                    </a>
 
                     <div class="detail-comment">
                         <h4>Comment <span style="font-size: 18px" > ${commentNum} </span>  </h4>

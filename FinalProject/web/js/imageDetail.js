@@ -7,6 +7,7 @@
 let index = 1;
 
 $(document).ready(() => {
+
     $('.editPost').attr('disabled', 'true');
     let intialTitle = $(".title").val();
     if ($("#comment").val() > 0) {

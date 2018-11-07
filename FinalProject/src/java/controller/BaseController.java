@@ -5,6 +5,7 @@
  */
 package controller;
 
+import controller.authController.RecoverPassword;
 import controller.mainController.ImageDetail;
 import controller.mainController.Profile;
 import java.io.IOException;
@@ -40,6 +41,9 @@ public abstract class BaseController extends HttpServlet {
   }
 
   boolean isAuthenticate(HttpServletRequest req) {
+    if(this instanceof RecoverPassword) {
+      return true;
+    }
     Cookie[] cookies = null;
     cookies = req.getCookies();
     AuthModel user = (AuthModel) req.getSession().getAttribute("user");

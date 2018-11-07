@@ -12,8 +12,8 @@
     </div>
     <div class="col-md-5 col-12 header-3">
         <form method="GET" action="search" class="searchForm">
-            <i class="fas fa-search" style="color: #28A3FC ; font-size: 20px" ></i>
-            <input type="text" name="query" required=""  class="form-control searchInput" id="search" placeholder="Search">
+            <i class="fas fa-search" style="color: #BABABA ; font-size: 23px" ></i>
+            <input type="text" value="${param.query}"  name="query" required=""  class="form-control searchInput" id="search" placeholder="Search">
         </form>
     </div>
     <div class=" col-md-3 col-12 toProfile header-3" >

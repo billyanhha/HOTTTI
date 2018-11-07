@@ -145,8 +145,8 @@ public class UserDao extends BaseDao {
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setString(1, '%' + query + '%');
       ps.setString(2, '%' + query + '%');
-      ps.setInt(3 , index - 1);
-      ps.setInt(4 , index);
+      ps.setInt(3, index - 1);
+      ps.setInt(4, index);
 
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
@@ -183,6 +183,26 @@ public class UserDao extends BaseDao {
       Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
     }
     return -1;
+  }
+
+  public String getPassword(String username, String email) {
+    try {
+      String sql = "SELECT [password]\n"
+              + "  FROM [dbo].[User]\n"
+              + "  Where username = ?\n"
+              + "  And email = ?";
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setString(1, username);
+      ps.setString(2, email);
+
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        return rs.getString("password");
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return "";
   }
 
 }

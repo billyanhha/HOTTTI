@@ -25,6 +25,8 @@ body {
     background-color: #EEEEEE;
 }
 
+
+
 .text {
     width: 100%;
     word-wrap: break-word;
@@ -51,8 +53,8 @@ body {
     flex-direction: row;
     justify-content: space-between;
     margin-top: 20px;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .padding{
@@ -72,16 +74,20 @@ body {
 
 .searchForm{
     width: 100% ; display: flex ; flex-direction: row ; justify-content: center; align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.searchInput:focus .searchForm {
     border-bottom: 1px solid #28A3FC;
 }
+
 
 .searchInput{
     border: none !important;
 
 }
 .searchInput:focus{
-    border: none !important;
-    box-shadow: none !important;
+    box-shadow: none ;
 }
 
 .buttonUpload{
@@ -246,7 +252,6 @@ a:hover {
 
 .profile-header{
     transition: all 0.2s ease;
-    padding: 5px 10px;
     background-color: transparent;
     border: none;
     border-radius: 15px;
@@ -301,11 +306,15 @@ a:hover {
 }
 
 .detail-div-image{
-    background-color: #eee;
     border-radius: 10px;
     margin-top: 20px;
     width: 100%;
     margin-bottom: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.detail-div-image:hover{
+    filter: brightness(70%);
 }
 
 .detail-comment{
@@ -434,8 +443,6 @@ a:hover {
     }
 }
 
-/*loader*/
-
 .showError{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -467,24 +474,40 @@ a:hover {
     display: block;
 }
 
+.download{
+   cursor: url(../images/download.png) , cell ;
+}
 
+.profile-div-username{
+    font-size: 30px;
+    color: #483726;
+    margin-bottom: 0 !important;
+}
 
-
+.profile-div-fullname{
+    font-size: 15px;
+    font-weight: bold;
+}
 
 @media screen and (max-width: 600px) {
     .padding , .profile-div {
         padding-left: 5px;
         padding-right: 5px
     }
+    .profile-div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .profile-header{
+        margin-top: 10px;
+    }
     .loginDiv{
         max-width: 90%;
     }
     .inspire{
         display: none
-    }
-
-    .toProfile {
-        margin-top: 3px;
     }
 
     .detail-div-in {
@@ -498,6 +521,11 @@ a:hover {
     .grid__col-sizer,
     .photo-item {
         width: 100% !important;
+    }
+    
+    .toProfile{
+        flex-direction: column;
+                margin-top: 3%;
     }
 
 }
