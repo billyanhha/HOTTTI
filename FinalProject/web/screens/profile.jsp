@@ -22,6 +22,7 @@
             <jsp:include page="../components/homHeader.jsp"/>
             <jsp:include page="../components/changeAvatar.jsp"/>
             <jsp:include page="../components/postModal.jsp"/>
+            <jsp:include page="../components/profileChangeModal.jsp"/>
             <hr/>
             <input type="hidden" id="uid" value="${param.id}"/>
             <input type="hidden" id="username" value="${user.username}"/>
@@ -47,7 +48,18 @@
                     </c:otherwise>
                 </c:choose>
                 <div>
-                    <p class="profile-div-username" >${user.username}</p>
+                    <div class="profile-div-user-setting" >
+                        <p class="profile-div-username" >${user.username} 
+                            <c:if test = "${param.id eq sessionScope.user.id}">
+                                <button 
+                                    data-toggle="modal" data-target="#changeProfile"
+                                    data-toggle="tooltip" title="Change profile"
+                                    class="profile-div-changebutton">
+                                    <i class="fas fa-cogs"></i>
+                                </button>
+                            </c:if>
+                        </p>
+                    </div>
                     <h5>${requestScope.userImage} Post</h5>
                     <p class="profile-div-fullname">${user.fullname}</p>
                 </div>

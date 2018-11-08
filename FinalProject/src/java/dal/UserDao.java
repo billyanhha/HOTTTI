@@ -64,6 +64,7 @@ public class UserDao extends BaseDao {
       String sql = "SELECT [id]\n"
               + "      ,[username]\n"
               + "      ,[fullname]\n"
+              + "      ,[email]\n"
               + "  FROM [dbo].[User]\n"
               + "  Where id = ? ";
 
@@ -76,6 +77,7 @@ public class UserDao extends BaseDao {
         user.setId(rs.getInt("id"));
         user.setUsername(rs.getString("username"));
         user.setFullname(rs.getString("fullname"));
+        user.setEmail(rs.getString("email"));
       }
 
       return user;
@@ -203,6 +205,62 @@ public class UserDao extends BaseDao {
       Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
     }
     return "";
+  }
+
+  public boolean checkPassword(int id, String password) {
+
+    try {
+      String sql = "SELECT [password]\n"
+              + "  FROM [dbo].[User]\n"
+              + "  Where id = ?\n";
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setInt(1, id);
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        return password.equals(rs.getString("password"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return false;
+  }
+
+  public boolean editEmail(int id, String password, String email) {
+
+    try {
+      String sql = "UPDATE [dbo].[User]\n"
+              + "   SET [email] = ?\n"
+              + " WHERE id = ? and password = ?";
+
+      PreparedStatement ps = connection.prepareCall(sql);
+      ps.setString(1, email);
+      ps.setInt(2, id);
+      ps.setString(3, password);
+      ps.executeUpdate();
+      return true;
+    } catch (SQLException ex) {
+      Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    }
+  }
+  
+   public boolean editPassword(int id, String passwordl) {
+
+    try {
+      String sql = "UPDATE [dbo].[User]\n"
+              + "   SET [password] = ?\n"
+              + " WHERE id = ?";
+
+      PreparedStatement ps = connection.prepareCall(sql);
+      ps.setString(1, passwordl);
+      ps.setInt(2, id);
+      ps.executeUpdate();
+      return true;
+    } catch (SQLException ex) {
+      Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+      return false;
+    }
   }
 
 }

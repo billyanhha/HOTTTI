@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="title" placeholder="Image description">
                         <input type="file" id="inputFile" class="filePost"  name="file" accept="image/*" style="margin-top: 10px">
-                        <image id="image_upload_preview" src="" class="preImage" />
+                        <image id="image_upload_image" src="" class="preImage" />
                     </div>
                 </div>
                 <div class="modal-footer">

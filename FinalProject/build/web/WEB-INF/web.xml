@@ -60,6 +60,14 @@
         <servlet-name>Recover</servlet-name>
         <servlet-class>controller.authController.RecoverPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>setting</servlet-name>
+        <servlet-class>controller.mainController.ChangeEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserPassword</servlet-name>
+        <servlet-class>controller.mainController.ChangePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -119,6 +127,14 @@
     <servlet-mapping>
         <servlet-name>Recover</servlet-name>
         <url-pattern>/recover</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>setting</servlet-name>
+        <url-pattern>/changeEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserPassword</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

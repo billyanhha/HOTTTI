@@ -6,6 +6,7 @@
 package controller;
 
 import controller.authController.RecoverPassword;
+import controller.mainController.ChangePassword;
 import controller.mainController.ImageDetail;
 import controller.mainController.Profile;
 import java.io.IOException;

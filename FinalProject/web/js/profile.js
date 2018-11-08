@@ -65,7 +65,7 @@ const uploadImage = () => {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#image_upload_preview').attr('src', e.target.result);
+                $('#image_upload_image').attr('src', e.target.result);
             };
 
             reader.readAsDataURL(input.files[0]);

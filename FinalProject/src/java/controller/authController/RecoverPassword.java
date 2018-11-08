@@ -46,7 +46,7 @@ public class RecoverPassword extends BaseController {
     if (!result.isEmpty()) {
       sendFromGMail(from, pass, to, subject, result);
     } else {
-      resp.sendError(404 , "Username or email not exist");
+      resp.sendError(404 , "Username or email wrong");
     }
 
   }

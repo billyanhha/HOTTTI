@@ -285,7 +285,7 @@ a:hover {
 }
 
 .detail-div{
-    height: 100%;
+    min-height: 100%;
     position: relative;
     display: flex;
     align-items: center;
@@ -313,9 +313,9 @@ a:hover {
     transition: all 0.2s ease-in-out;
 }
 
-.detail-div-image:hover{
+/*.detail-div-image:hover{
     filter: brightness(70%);
-}
+}*/
 
 .detail-comment{
     width: 100%;
@@ -489,6 +489,50 @@ a:hover {
     font-weight: bold;
 }
 
+
+.modal-content{
+    border-radius: 12px;
+}
+
+.profile-div-user-setting{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fade {
+    padding-right: 0 !important;
+}
+
+.profile-div-changebutton{
+    background-color: transparent;
+    color: #bababa;
+    font-size: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+.profile-div-changebutton:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+
+.changeModalLink{
+    padding: 15px;
+    color: #000;
+    text-align: center;
+}
+
+.setting {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 5px 50px;
+    padding-bottom: 15px;
+}
+
+
 @media screen and (max-width: 600px) {
     .padding , .profile-div {
         padding-left: 5px;
@@ -503,7 +547,7 @@ a:hover {
     .profile-header{
         margin-top: 10px;
     }
-    .loginDiv{
+    .loginDiv , .setting{
         max-width: 90%;
     }
     .inspire{

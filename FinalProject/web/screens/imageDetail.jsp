@@ -34,14 +34,11 @@
         <input type="hidden" id="comment" value="${commentNum}"/>
         <div class="padding backgroundColor" style="min-height: 100%" >
             <div class="detail-div">
-
                 <a href="home"  class="btn btn-primary backButton">
                     <i class="fas fa-chevron-left"></i>
                     Home
                 </a>
-
                 <div class="detail-div-in">
-
                     <div style="width: 100%; display: flex ; flex-direction: row ; justify-content: space-between ; align-items: center">
                         <div style="display: flex; flex-direction: row ; align-items: center" >
                             <jsp:include page="../components/toProfile.jsp">
@@ -66,13 +63,8 @@
                             </a>
                         </div>
                     </div>
-
                     <h5 style="margin-top: 15px; margin-bottom: 0" ><%= image.getTitle()%></h5>
-
-                    <a href="http://localhost:8080/FinalProject/image?id=<%= image.getId()%>" download="<%= image.getTitle()%>" class="download" >
-                        <img src="http://localhost:8080/FinalProject/image?id=<%= image.getId()%>" class="detail-div-image">
-                    </a>
-
+                    <img src="http://localhost:8080/FinalProject/image?id=<%= image.getId()%>" class="detail-div-image">
                     <div class="detail-comment">
                         <h4>Comment <span style="font-size: 18px" > ${commentNum} </span>  </h4>
                         <form method="POST">
